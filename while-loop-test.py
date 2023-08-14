@@ -30,4 +30,4 @@ while index < length:
         print("\tShot {}: {} to {}".format(i, start_time, end_time))
 
     print(detect_shot_changes(gcs_uri))
-    list[index] += 1
+    index += 1
