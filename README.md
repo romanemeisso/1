@@ -1,6 +1,8 @@
 # Project
 
-I need to analyze the visual content of videos for a research project. I have a list of videos for which I want to analyse :
+I need to analyze the visual content of videos for a research project. This analysis aims at looking for correlations between the amount of views and different visual elements of YouTube video in order to determine whether or not there are specific elements that help boost the popularity of these videos in terms of views. For this project, I focus on French popular science videos.
+
+I have a list of videos for which I want to analyse :
 - if there are people appearing on screen and if so, what are their characteristics;
 - if there is text appearing on screen and if so, how often;
 - and how many shots there are per minute.
