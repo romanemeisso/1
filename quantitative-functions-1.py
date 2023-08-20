@@ -1,9 +1,3 @@
-# COMMAND LINE COMMANDS:
-    # cd /Users/romanemeissonnier/Documents/video_intelligence_api
-    # source master_env/bin/activate
-    # cd master_env
-    # /Users/romanemeissonnier/Documents/video_intelligence_api/master_env/bin/python /Users/romanemeissonnier/Documents/video_intelligence_api/master_env/quantitative-functions-1.py
-
 import os 
 
 from google.cloud import videointelligence_v1 as videointelligence
