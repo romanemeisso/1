@@ -1,16 +1,22 @@
+# COMMAND LINE COMMANDS:
+    # cd /Users/romanemeissonnier/Documents/video_intelligence_api
+    # source master_env/bin/activate
+    # cd master_env
+    # /Users/romanemeissonnier/Documents/video_intelligence_api/master_env/bin/python /Users/romanemeissonnier/Documents/video_intelligence_api/master_env/quantitative-functions-1.py
+
 import os 
 
 from google.cloud import videointelligence_v1 as videointelligence
 
-gcs_uri = "gs://00233-uk-master-1/first_test.mp4"
+# "gs://00233-uk-master-1/video-test-decryptage.mp4"
 
-list = ["gs://00233-uk-master-1/first_test.mp4", "gs://00233-uk-master-1/video-test-decryptage.mp4"]
+list = ["gs://00233-uk-master-1/first_test.mp4"]
 gcs_uri = list[0]
 length = len(list)
 index = 0
 
 while index < length:
-    print("\n")
+    print("\n=============================================================\n")
     print(gcs_uri)
     
     # detect shot changes
@@ -22,10 +28,10 @@ while index < length:
     operation = video_client.annotate_video(
         request={"features": features, "input_uri": gcs_uri}
     )
-    print("\nShot change annotations:")
+    print("\n---### SHOT CHANGES ###---")
 
     result = operation.result(timeout=90)
-    print("Finished processing.")
+    print("\nFinished processing.")
 
     # first result is retrieved because a single video was processed
     for i, shot in enumerate(result.annotation_results[0].shot_annotations):
@@ -38,6 +44,7 @@ while index < length:
         print("\tShot {}: {} to {}".format(i, start_time, end_time))
 
     print(detect_shot_changes(gcs_uri))
+    print("\n//  NEXT FUNCTION //\n")
 
     # detect faces
     def detect_faces(gcs_uri="gs://00233-uk-master-1/first_test.mp4"):
@@ -60,7 +67,7 @@ while index < length:
             }
         )
 
-        print("\nProcessing video for face detection annotations.")
+        print("\n---### FACE DETECTION ###---")
         result = operation.result(timeout=300)
 
         print("\nFinished processing.\n")
@@ -100,6 +107,7 @@ while index < length:
                     )
                 )
     print(detect_faces(gcs_uri))
+    print("\n//  NEXT FUNCTION //\n")
 
     # recognize text
 
@@ -114,10 +122,10 @@ while index < length:
         request={"features": features, "input_uri": gcs_uri}
     )
 
-    print("\nText detection:")
+    print("\n---### TEXT DETECTION ###---")
     result = operation.result(timeout=600)
 
-    print("Finished processing.")
+    print("\nFinished processing.")
 
     # The first result is retrieved because a single video was processed.
     annotation_result = result.annotation_results[0]
@@ -146,9 +154,6 @@ while index < length:
                 time_offset.seconds + time_offset.microseconds * 1e-6
             )
         )
-        print("Rotated Bounding Box Vertices:")
-        for vertex in frame.rotated_bounding_box.vertices:
-            print("\tVertex.x: {}, Vertex.y: {}".format(vertex.x, vertex.y))
 
     print(recognize_text(gcs_uri))
     index += 1
