@@ -8,7 +8,7 @@ length = len(list)
 index = 0
 
 while index < length:
-    print("\n")
+    print("\n=============================================================\n")
     print(gcs_uri)
     def detect_person(gcs_uri):
         """Detects people in a video."""
@@ -32,10 +32,10 @@ while index < length:
             }
         )
 
-        print("\nPerson detection annotations:")
+        print("\n---### PERSON DETECTION ###---")
         result = operation.result(timeout=300)
 
-        print("Finished processing.")
+        print("\nFinished processing.")
 
         # Retrieve the first result, because a single video was processed.
         annotation_result = result.annotation_results[0]
@@ -72,18 +72,6 @@ while index < length:
                             attribute.name, attribute.value, attribute.confidence
                         )
                     )
-
-                # Landmarks in person detection include body parts such as
-                # left_shoulder, right_ear, and right_ankle
-                print("Landmarks:")
-                for landmark in timestamped_object.landmarks:
-                    print(
-                        "\t{}: {} (x={}, y={})".format(
-                            landmark.name,
-                            landmark.confidence,
-                            landmark.point.x,  # Normalized vertex
-                            landmark.point.y,  # Normalized vertex
-                        )
-                    )
+                print("\n")
     print(detect_person(gcs_uri))
     index += 1
